@@ -12,19 +12,17 @@ Description: function def file
 
 #include <iostream>
 #include <string>
-#include <regex>
-#include <string.h>
 
 using namespace std;
 
 // function Name: print(lex, type)
 // Purpose: Print lex string and corresponding type of string
 // Postcondition: Lex and type has been printed
-void print(string lex, string type, int i);
+void print(string type, int j);
 
 // function Name: lexer(lex)
 // Purpose: to find what type of string lex is
 // Postcondition: returns the type of string lex is
-void lexer(string lex, int i);
+void lexer(string lex, int j);
 
 #endif

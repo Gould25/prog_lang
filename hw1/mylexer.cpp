@@ -9,7 +9,6 @@ Description: HW1 C++ program encoding a lexical analyser
 
 #include <iostream>
 #include <string>
-#include <string.h>
 #include "lexer.h"
 
 using namespace std;
@@ -24,10 +23,10 @@ int main() {
 
   cin >> num;
 
-  for (int i=1; i<=num; i++){
+  for (int j=1; j<=num; j++){
     cin >> lex;
     //cout << "call fnct lexer on " << lex << endl;
-    lexer(lex, i);
+    lexer(lex, j);
   }//end for
 
   return 0;
