@@ -213,6 +213,6 @@ bool email(string lex) {
   int state = 1;
   int i = 0;
   int n = lex.length();
-  // start with .com check n-4 bedtime
-  
+  // start with .com check n-4 bedtime ok 
+
 }// end email function
