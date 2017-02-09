@@ -193,6 +193,16 @@ bool ident(string lex) {
         if alpha || digit || '_' stay here */
       case 2: if (isalpha(lex[i]) || isdigit(lex[i]) || lex[i] == '_')
                 state = 2;
+              else if (lex[i] == '.')
+                state = 3;
+              else
+                state = -1;
+              break;
+
+      /* multiple identifier state
+        check for alpha character first */
+      case 3: if (isalpha(lex[i]))
+                state = 2;
               else
                 state = -1;
               break;
@@ -213,6 +223,32 @@ bool email(string lex) {
   int state = 1;
   int i = 0;
   int n = lex.length();
-  // start with .com check n-4 bedtime ok 
+  int at_pos = lex.find('@');
+  string sublex;
+  string pre_at;
+  string post_at;
 
+  // setting sublex to last 4 position of lex if string length is > 5
+  if (n > 8 ){
+    sublex = lex.substr(n-4,n);
+    pre_at = lex.substr(0, at_pos);
+    post_at = lex.substr(at_pos+1, n-4);
+  }
+  else
+    sublex = "VOID";
+
+  // check if sublex is a valid suffix
+  if (sublex == ".com" || sublex == ".net" || sublex == ".edu")
+    state = 1;
+  else
+    state = -1;
+
+  if (ident(pre_at) && ident(post_at))
+    state = 2;
+  else
+    state = -1;
+  if (state == 2)
+    return true;
+  else
+    return false;
 }// end email function
