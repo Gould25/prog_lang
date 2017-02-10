@@ -13,6 +13,8 @@ Description: function definitions file
 
 using namespace std;
 
+/*****     Print Function     *****/
+
 void print(string type, int j){
   cout << j << ": " << type << endl;
   return;
@@ -130,20 +132,14 @@ bool hex(string lex){
     switch (state) {
 
       // Beginning state check for leading A-F || digit
-      case 1: if ( lex[i] == 'A' || lex[i] == 'B' || lex[i] == 'C' ||
-                        lex[i] == 'D' || lex[i] == 'E' || lex[i] == 'F')
-                state = 2; // hex check state
-              else if (isdigit(lex[i]))
+      case 1: if ( isxdigit(lex[i]) )
                 state = 2; // hex check state
               else
                 state = -1; // invalid state
                 break;
 
-      // Hex check state check for A-F || digit
-      case 2: if ( lex[i] == 'A' || lex[i] == 'B' || lex[i] == 'C' ||
-                      lex[i] == 'D' || lex[i] == 'E' || lex[i] == 'F')
-                state = 2; // hex check state
-              else if (isdigit(lex[i]))
+      // Hex check for A-F || digit stay here if 'H' goto state 3
+      case 2: if ( isxdigit(lex[i]) )
                 state = 2; // hex check state
               else if (lex[i] == 'H')
                 state = 3; // hex accepting state
@@ -254,7 +250,7 @@ bool email(string lex) {
   if (suffix == ".com" || suffix == ".net" || suffix == ".edu")
     state = 1;
   else
-    state = -1;
+    return false;
 
   // call ident fnct to check if strings pre_at and post_at are identifiers
   if (ident(pre_at) && ident(post_at))
