@@ -22,25 +22,28 @@ int main() {
   /*****     Main Body     *****/
 
   cin >> num;
+  cout << num << endl;
 
   for (int j=1; j<=num; j++){
 
     cin >> lex; // read string
 
     if ( integer(lex) )
-      print("Integer.", j);
-    else if ( decimal(lex))
-      print("DECIMAL.", j);
-    else if ( hex(lex))
-      print("HEXIDECIMAL.", j);
-    else if ( key(lex))
-      print("KEYWORD.", j);
-    else if ( ident(lex))
-      print("IDENTIFIER.", j);
-    else if ( email(lex))
-      print("EMAIL.", j);
+      print( "Integer.", j );
+    else if ( decimal(lex) )
+      print( "Decimal.", j );
+    else if ( scifi(lex) )
+      print( "Scientific.", j );
+    else if ( hex(lex) )
+      print( "Hexidecimal.", j );
+    else if ( key(lex) )
+      print( "Keyword.", j );
+    else if ( ident(lex) )
+      print( "Identifier.", j );
+    else if ( email(lex) )
+      print( "Email.", j );
     else
-      print("INVALID!", j);
+      print( "INVALID!", j );
   }//end for
 
   return 0;

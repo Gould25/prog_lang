@@ -30,6 +30,11 @@ bool integer(string lex);
 // Postcondition: returns true if decimal or false
 bool decimal(string lex);
 
+// function Name: scifi(lex)
+// Purpose: to find if string lex is a scientific
+// Postcondition: returns true if scientific or false
+bool scifi(string lex);
+
 // function Name: hex(lex)
 // Purpose: to find if string lex is a hexidecimal
 // Postcondition: returns true if hexidecimal or false
