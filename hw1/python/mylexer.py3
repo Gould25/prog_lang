@@ -12,6 +12,9 @@
 
 """
 
+from integer import integer
+from decimal import decimal
+
 # main function
 def main():
     num = int(input())
@@ -35,40 +38,7 @@ def main():
             print(str(j+1)+": Email.")
         else: # INVALID
             print(str(j+1)+": INVALID!")
-
-    decimal(lex)
-
-def integer(lex):
-
-    i = 0
-    state = 1
-
-    while(i < len(lex)):
-
-        if (lex[0] == '+' or lex[0] == '-') and i == 0:
-            state = 5
-        elif lex[i].isdigit():
-            state = 2
-        else:
-            break
-        i += 1
-    if (i == len(lex) and state == 2):
-        return True
-    else:
-        return False
-
-def decimal(lex):
-    if(lex.count('.')>0):
-        pos = lex.index('.')
-        int_chk = lex[ : pos]
-        num_chk = lex[pos+1: ]
-    else:
-        return False
-
-    if(integer(int_chk) and num_chk.isdigit()):
-        return True
-    else:
-        return False
+# end MAIN FUNCTION
 
 def scifi(lex):
     if(lex.count('E')>0):
@@ -82,6 +52,7 @@ def scifi(lex):
         return True
     else:
         return False
+# end scifi function
 
 def hexidecimal(lex):
     state = 1
