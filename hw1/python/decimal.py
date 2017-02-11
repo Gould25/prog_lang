@@ -1,23 +1,20 @@
 #!/usr/bin/env python
 
 """ module: decimal
-    python version: 3.5
 
-    CS3500 HW #1 Python3 version
+    python version: 3.5
 
     purpose: mylexer support function to check if a string is a decimal
 
     Programer: Jeff Gould
-    Instructor: Dr Morales
-
 """
-# import integer function
-from integer import integer
+
+from integer import integer # import integer function
 
 # decimal function
-
 def decimal(lex):
 
+    # check is string has 1 '.'
     if(lex.count('.') == 1):
         pos = lex.index('.') # get pos of '.'
         int_chk = lex[ : pos] # create string before '.'
@@ -30,4 +27,5 @@ def decimal(lex):
         return True
     else:
         return False
+
 # end decimal function

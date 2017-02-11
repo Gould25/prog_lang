@@ -1,22 +1,18 @@
 #!/usr/bin/env python
 
 """ module: integer
-    python version: 3.5
 
-    CS3500 HW #1 Python3 version
+    python version: 3.5
 
     purpose: mylexer support function to check if a string is an integer
 
     Programer: Jeff Gould
-    Instructor: Dr Morales
-
 """
 # integer function
-
 def integer(lex):
 
     i = 0
-    state = 1
+    state = 1 # starting state
 
     while(i < len(lex)):
 
@@ -28,6 +24,8 @@ def integer(lex):
         else:
             break
         i += 1
+
+    # check if in final state and end of string
     if (i == len(lex) and state == 2):
         return True
     else:
