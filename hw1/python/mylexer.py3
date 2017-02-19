@@ -39,4 +39,5 @@ def main():
             print(str(j+1)+": INVALID!")
 # end MAIN FUNCTION
 
+# call main function
 main()
