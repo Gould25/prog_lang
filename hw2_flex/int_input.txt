@@ -1,0 +1,11 @@
+12544
+-53266
+25.55
+55.657
+-55.12
+% if you see it is no good
+ABCDEF0123456789H
+"If this reads correct it is good" 5AH
+10AH
+AA
+DEF ADDH

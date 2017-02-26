@@ -7,9 +7,8 @@
 #include <iostream>
 using namespace std;
 
-int total_lines = 0;      // total number of lines
-int total_comments = 0;   // total comments
-int num_lines_process = 0;  // total lines processed
+int total_lines = 0;        // total number of lines
+int process_num = 0;        // processed number
 
 %}
 
@@ -18,17 +17,43 @@ int num_lines_process = 0;  // total lines processed
 %option noyywrap
 DIGIT       [0-9]
 ALPHA       [a-zA-Z]
+HEX         [0-9ABCDEF]
 
 /*****     REG EX     *****/
 %%
 
-[ \t]                ;
-[\n]                 { total_lines++; }
-[%]                  { ; }
-{DIGIT}+\.{DIGIT}+   { cout << "Found Floating-point number:" << yytext << endl;}
-{DIGIT}+             { cout << "Found an integer:" << yytext << endl; }
-{ALPHA}{DIGIT}+      { cout << "Found a string:" << yytext << endl; }
 
+[ \t]                     ;
+[\n]                     { total_lines++;  }
+
+%(.)*                     ;
+
+
+
+[+-]?{DIGIT}+             { // check for integer
+  process_num ++; // increment process number
+  cout << "#" << process_num << ": TOKEN: INTCONST\tLEXEME: " << yytext << endl;
+}
+
+[+-]?{DIGIT}+[.]{DIGIT}+  { // check for decimal
+  process_num ++; // increment process number
+  cout << "#" << process_num << ": TOKEN: DECCONST \tLEXEME: " << yytext << endl;
+}
+
+{HEX}+[H]                 { // check for hexidecimal
+  process_num ++; // increment process number
+  cout << "#" << process_num << ": TOKEN: HEXCONST \tLEXEME: " << yytext << endl;
+}
+
+\"(\\.|[^"])*\"           { // check for string literal
+  process_num ++; // increment process number
+  cout << "#" << process_num << ": TOKEN: STRCONST\tLEXEME: " << yytext << endl;
+}
+
+.                         { // default rule
+  process_num ++; // increment process number
+  cout << "#" << process_num << ": TOKEN: ?       \tLEXEME: " << yytext << endl;
+}
 %%
 
 /*****     CODE     *****/
@@ -36,8 +61,7 @@ ALPHA       [a-zA-Z]
 main(){
   // lex through the input file
   yylex();
-  cout << total_lines - total_comments << " lines processed." << endl;
-  cout << "total lines = " << total_lines << endl;
-  cout << "total comments = " << total_comments << endl;
+  cout << total_lines  << " lines processed." << endl;
+
   return 0;
 }
