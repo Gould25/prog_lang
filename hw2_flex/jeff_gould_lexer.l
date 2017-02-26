@@ -9,6 +9,8 @@ using namespace std;
 
 int total_lines = 0;        // total number of lines
 int process_num = 0;        // processed number
+string s;                   // lexeme type
+void print_lex(string s);   // print function
 
 %}
 
@@ -17,46 +19,84 @@ int process_num = 0;        // processed number
 %option noyywrap
 DIGIT       [0-9]
 ALPHA       [a-zA-Z]
+ALPHANUM    [a-zA-z0-9]
 HEX         [0-9ABCDEF]
+BIN         [0|1]
+OPERATOR    [+|*|/|<|>|&|-]
+SUFFIX      [\.com|\.net|\.edu]
+KEYWORD     [while|if|then|else|end|bannana]
 
 /*****     REG EX     *****/
 %%
 
 
-[ \t]                     ;
-[\n]                     { total_lines++;  }
+[ \t]                     {; // skipping white space
+}
 
-%(.)*                     ;
+[\n]                      { total_lines++; // incrementing total_lines
+}
 
-
+%(.)*                     {; // skip comment
+}
 
 [+-]?{DIGIT}+             { // check for integer
-  process_num ++; // increment process number
-  cout << "#" << process_num << ": TOKEN: INTCONST\tLEXEME: " << yytext << endl;
+  print_lex("INTCONST");
 }
 
 [+-]?{DIGIT}+[.]{DIGIT}+  { // check for decimal
-  process_num ++; // increment process number
-  cout << "#" << process_num << ": TOKEN: DECCONST \tLEXEME: " << yytext << endl;
+  print_lex("DECCONST");
+}
+
+[+-]?{DIGIT}+[.]{DIGIT}+[E][+|-]?{DIGIT}+  { // check for scientific number
+  print_lex("SCICONST");
 }
 
 {HEX}+[H]                 { // check for hexidecimal
-  process_num ++; // increment process number
-  cout << "#" << process_num << ": TOKEN: HEXCONST \tLEXEME: " << yytext << endl;
+  print_lex("HEXCONST");
 }
 
-\"(\\.|[^"])*\"           { // check for string literal
-  process_num ++; // increment process number
-  cout << "#" << process_num << ": TOKEN: STRCONST\tLEXEME: " << yytext << endl;
+{BIN}+[B]                 { // check for binary number
+  print_lex("BINCONST");
+}
+
+{OPERATOR}                { // check for OPERATOR
+  print_lex("OPERATOR");
+}
+
+while|if|then|else|banana { // check for keyword
+  print_lex("KEYWORD");
+}
+
+({ALPHA}+{ALPHANUM}*([\.]{ALPHA}+{ALPHANUM}*)*[@]{ALPHA}+{ALPHANUM}*(\.{ALPHA}+{ALPHANUM}*)*{SUFFIX}+)
+{ // check for email
+  print_lex("EMCONST");
+}
+
+{ALPHA}+{ALPHANUM}*       { // check for identifier
+  print_lex("IDENT");
+}
+
+\".*\"                    { // check for string literal
+  print_lex("STRCONST");
+}
+
+[\^]                      { // new line character add 1 to num_lines_process
+  print_lex("?     ");
+  total_lines++;
 }
 
 .                         { // default rule
-  process_num ++; // increment process number
-  cout << "#" << process_num << ": TOKEN: ?       \tLEXEME: " << yytext << endl;
+  print_lex("?     ");
 }
+
 %%
 
 /*****     CODE     *****/
+
+void print_lex(string s){
+  cout << "#" << process_num <<": TOKEN: "<< s <<"\tLEXEME: "<< yytext << endl;
+  process_num ++; // increment process number
+}
 
 main(){
   // lex through the input file

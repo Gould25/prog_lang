@@ -7,5 +7,20 @@
 ABCDEF0123456789H
 "If this reads correct it is good" 5AH
 10AH
-AA
+A5
 DEF ADDH
+while
+if
+then
+asdd
+123.456E+6
+-0.54E-5
+25.25E+25
+152.25E9999
+100000000000111010101010101100100B 0101B 0101010105B
++-/*<>&
+55+55-66+/88
+xyz.pqr@netscape.net
+jeff@mst.yahoo.edu
+jeff@mst.com
+jeff.gould@mst.bat
