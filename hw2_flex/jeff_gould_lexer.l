@@ -67,8 +67,8 @@ while|if|then|else|banana { // check for keyword
   print_lex("KEYWORD");
 }
 
-({ALPHA}+{ALPHANUM}*([\.]{ALPHA}+{ALPHANUM}*)*[@]{ALPHA}+{ALPHANUM}*(\.{ALPHA}+{ALPHANUM}*)*{SUFFIX}+)
-{ // check for email
+({ALPHA}+{ALPHANUM}*([\.]{ALPHA}+{ALPHANUM}*)*[@]{ALPHA}+{ALPHANUM}*((\.{ALPHA}+({ALPHANUM}*))*(([\.com]|[\.net]|[\.edu])+))) {
+ // check for email
   print_lex("EMCONST");
 }
 
