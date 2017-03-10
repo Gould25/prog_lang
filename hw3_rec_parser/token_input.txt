@@ -10,5 +10,9 @@ function
         "JEFF"
                 "gould'" kjjjk
         amp = 52
-
+""""
 end
+
+< > = #
+! #
+, = + - * / OR AND
