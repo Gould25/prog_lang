@@ -1,4 +1,3 @@
-#define __MAIN__
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -62,7 +61,7 @@ bool is_factor(string token){
 /*****     Term Function     *****/
 
 bool is_term(string token){
-  int state = 0;
+
   if ( is_factor(token) ){
     cout << "before call " << token << endl;
     token = get_token();

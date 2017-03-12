@@ -23,8 +23,9 @@ void print(string token, string output){
 bool is_integer(string token){
   int state = 1;
   int i = 0;
+  int length = token.length();
 
-  while ( i < token.length()) {
+  while ( i < length ) {
     switch (state) {
 
       // Beginning state check for leading +/- digit
@@ -59,7 +60,7 @@ bool is_integer(string token){
   } // end while
 
   // if state is correct and i = length return true
-  if ( i == token.length() && state == 3 )
+  if ( i == length && state == 3 )
     return true;
   else
     return false;
@@ -128,8 +129,9 @@ bool is_keyword(string token){
 bool is_identifier(string token) {
   int state = 1;
   int i = 0;
+  int length = token.length();
 
-  while (i<token.length()) {
+  while (i < length ) {
     switch (state) {
 
       // beginning state check for alpha character first
@@ -165,7 +167,7 @@ bool is_identifier(string token) {
   }// end while
 
   // if state is correct and i = length return true
-  if (i == token.length() && state == 2 && !is_keyword(token))
+  if (i == length && state == 2 && !is_keyword(token))
     return true;
   else
     return false;
