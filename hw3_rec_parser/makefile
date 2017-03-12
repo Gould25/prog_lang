@@ -8,14 +8,7 @@ CFLAGS = -Wall --pedantic-error -O2
 
 
 program: ${OBJECTS}
-	${CPP} ${OBJECTS} -o program
-
-%.o:%.cpp ${HEADERS}
-	${CPP} -c $<
-
-.PHONY: checks
-checks: ${OBJECTS}
-	${CPP} ${CFLAGS} ${OBJECTS} -o warn
+	${CPP} ${CFLAGS} ${OBJECTS} -o program
 
 %.o:%.cpp ${HEADERS}
 	${CPP} ${CFLAGS} -c $<
