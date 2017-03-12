@@ -9,8 +9,10 @@ Description: function file
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include "grammar.h"
 #include "tokens.h"
+#include "global.h"
 
 /*****     Factor Function     *****/
 
@@ -24,12 +26,20 @@ bool is_factor(string token){
 /*****     Term Function     *****/
 
 bool is_term(string token){
+  int state = 0;
   if ( is_factor(token) ){
-    cin >> token;
-    if (token == "\n")
-      return true;
-    else if (is_mulop(token))
-  }
-      return true;
+    get_token();
+    if (is_mulop(token)){
+      get_token();
+      is_factor(token);
+    }
+    else if (token == "!"){
+      state = 1;
+    }
+    else
+      return false;
+  } // eif factor*/
+  if (state == 1)
+    return true;
   return false;
-} // end is_factor
+} // end is_term

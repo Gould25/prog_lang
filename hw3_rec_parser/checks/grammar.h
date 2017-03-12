@@ -18,5 +18,9 @@ using namespace std;
 // Postcondition: returns true or false
 bool is_factor(string token);
 
+// function Name: is_term(token)
+// Purpose: to find if the string is a term
+// Postcondition: returns true or false
+bool is_term(string token);
 
 #endif

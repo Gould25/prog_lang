@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include "tokens.h"
-#include "grammar.h"
 
 using namespace std;
 
@@ -14,9 +13,7 @@ int main() {
 
   while (cin >> token){
 
-    if ( is_factor(token) )
-      print( token, "FACTOR" );
-    else if ( is_integer(token) )
+    if ( is_integer(token) )
       print( token, "INTEGER" );
     else if ( is_decimal(token) )
       print( token, "DECIMAL" );
