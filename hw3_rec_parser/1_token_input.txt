@@ -1,0 +1,42 @@
+x / x * x AND x !
+
+
+  if ( is_factor(token) ){
+    token = get_token();
+    check = true;
+    //done = false;
+  }
+  else {
+    //done = true;
+    check = false;
+  }
+
+  if (is_mulop(token) ){
+    cerr << "true is_MULOP" << endl;
+        token = get_token();
+      if(is_term(token)){
+    cerr << "true is_term recurse" << endl;
+        check = true;
+      }
+      else {
+        check = false;
+      }
+  }
+  //else if (token == "!"){
+    //check = true;
+  //}
+  else
+    check = false;
+
+
+/*****    RETURN SECTION     ******/
+
+  if (check){
+    return true;
+  }
+  else {
+    return false;
+  }
+  get_token();
+
+} // end is_term
