@@ -25,34 +25,49 @@ bool is_term();
 // Postcondition: returns true or false
 bool is_simple_exp();
 
-// function Name: is_simple_exp()
-// Purpose: to find if the string is a simple expression
+// function Name: is_expression()
+// Purpose: to find if the string is an expression
 // Postcondition: returns true or false
 bool is_expression();
 
+// function Name: is_assignment()
+// Purpose: to find if the string is an assignment
+// Postcondition: returns true or false
+bool is_assignment();
 
-string token;
+// function Name: is_print()
+// Purpose: to find if the string is a print statement
+// Postcondition: returns true or false
+bool is_print();
 
+// function Name: is_ret()
+// Purpose: to find if the string is a return statement
+// Postcondition: returns true or false
+bool is_ret();
+
+// function Name: is_statement()
+// Purpose: to find if the string is a statement
+// Postcondition: returns true or false
+bool is_statement();
+
+// function Name: is_state_seq()
+// Purpose: to find if the string is a statement sequence
+// Postcondition: returns true or false
+bool is_state_seq();
+
+string token;     // global variable for input
 
 int main() {
-
-  /*****     Declarations     *****/
-
-int i = 0;
 
   /*****     Main Body     *****/
   get_token();
 
   //do {
 
-    if (is_expression())
-      cout << token << "\tCORRECT   " << i << endl;
-    else{
-      cout << token << "\tINVALID!   " << i << endl;
-    }
-  //  get_token();
-    i++;
-  //}while(token != "$");
+    if (is_state_seq())
+      cout << token << "\tCORRECT   " << endl;
+    else
+      cout << token << "\tINVALID!   " << endl;
 
   return 0;
 }//end main
@@ -84,11 +99,7 @@ bool is_term(){
   bool check;
 
   if ( is_factor() ) {
-    cerr << "IN TERM before token call " << token << endl;
-
     get_token();
-    cerr << "IN TERM after token call " << token << endl;
-
     check = true;
   }
   else
@@ -99,8 +110,6 @@ bool is_term(){
         if(is_factor()){
             check = true;
             get_token();
-            //if ( is_mulop(token) || token == "$")
-            //  check = true;
         } // end if
         else
           return false;
@@ -108,14 +117,10 @@ bool is_term(){
 
   /*****    RETURN SECTION     ******/
 
-  if (check ){
-    cerr << "TERM ret truye " << token << endl;
+  if (check )
     return true;
-  }
-  else {
+  else
     return false;
-  }
-  //get_token();
 
 } // end is_term
 
@@ -126,39 +131,29 @@ bool is_simple_exp(){
   bool check;
 
   if ( is_term() ) {
-    //get_token();
-    cerr << "In Simple " << token << endl;
-
     check = true;
   }
   else
-  cerr << "In Simple FAIIIIIIIIIIIIIIIIILLLLLLL   " << token << endl; //return false;
+    return false;
   if ( is_addop(token) ) {
-    cerr << "In Simple  addop before while  " << token << endl;
-
     while ( is_addop(token) ){
       get_token();
       if(is_term()){
         check = true;
-        if ( is_addop(token) || token == "$" || token == "]")
+        if ( is_addop(token) || token == "$" || token == "!" || token == ")")
           check = true;
-        else
-          return false;
+          else
+            return false;
       } // end if
       else
         return false;
     } // end while
   } // end if
-  //else
-    //return false;
 
  /*****    RETURN SECTION     ******/
 
-  if (check){
-    cerr << "Simple Ret Treue " << token << endl;
-
+  if (check)
     return true;
-  }
   else {
     return false;
   }
@@ -173,42 +168,148 @@ bool is_expression(){
   bool check;
 
   if ( is_simple_exp() ) {
-    //get_token();
     check = true;
   }
   else
     check = false;
 
-  if (token == "["){
-    cerr << "Begin Bracket before " << token << endl;
+  if (is_relation(token)){
     get_token();
-    if (is_relation(token)){
-      cerr << "Relation before " << token << endl;
+    if (is_simple_exp()){
+      return true;
+    }
+    else
+      check = false;
+  } // end if
+
+ /*****    RETURN SECTION     ******/
+
+  if (check)
+    return true;
+  else
+    return false;
+} // end expression
+
+/*****     assignment Function     *****/
+
+bool is_assignment(){
+
+  if ( is_identifier(token) ) {
+    get_token();
+    if ( token == ":=" ){
       get_token();
-      cerr << "Relation after " << token << endl;
-      if (is_simple_exp()){
-        //get_token();
-        cerr << "Simple " << token << endl;
-        if (token == "]"){
+      if ( is_expression() ){
+        if ( token == "!"){
+          get_token();
           return true;
+        }
+        else
+          return false;
+      }
+      else
+        return false;
+    }
+    else
+      return false;
+  }
+  else
+    return false;
+} // end is_assignment
+
+/*****     print statement Function     *****/
+
+bool is_print(){
+
+  if ( token == "PRINT" ) {
+    get_token();
+    if ( token == "(" ){
+      get_token();
+      if ( is_expression() ){
+        if ( token == ")"){
+          get_token();
+          if ( token == "!" ){
+            return true;
+          }
+          else
+            return false;
+        }
+        else
+          return false;
+      }
+      else
+        return false;
+    }
+    else
+      return false;
+  }
+  else
+    return false;
+} // end is_print
+
+/*****     return statement Function     *****/
+
+bool is_ret(){
+
+  if ( token == "RET" ) {
+    get_token();
+    if ( is_identifier(token) ){
+      get_token();
+      if ( token == "!" ){
+        return true;
+      }
+      else
+        return false;
+    }
+    else
+      return false;
+  }
+  else
+    return false;
+} // end is_ret
+
+/*****     statement Function     *****/
+
+bool is_statement(){
+  if ( is_print() | is_assignment() |
+        is_ret() )
+      return true;
+  return false;
+} // end is_statement
+
+/*****     statement sequence Function     *****/
+
+bool is_state_seq(){
+
+  bool check;
+
+  if ( is_statement() ){
+    cerr << "state seq 1 " << token << endl;
+    get_token();
+
+      while( is_statement() ){
+        cerr << "state seq 2 " << token << endl;
+
+        get_token();
+        if ( is_statement() ){
+          check = true;
+          get_token();
         }
         else
           check = false;
       }
+      if ( token == "$")
+        check = true;
       else
         check = false;
-    }
-    else
-      check = false;
-  }
- /*****    RETURN SECTION     ******/
 
-  if (check){
+  }
+  else
+    check = false;
+  /*****    RETURN SECTION     ******/
+  if (check )
     return true;
-  }
-  else {
+  else
     return false;
-  }
-  get_token();
 
-} // end expression
+
+} // end is_state_seq

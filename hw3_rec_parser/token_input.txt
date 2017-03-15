@@ -1,1 +1,6 @@
-c * c [ > x > x * x ]
+c := c * c !
+RET c !
+PRINT ( v ) !
+PRINT ( v ) !
+PRINT ( v ) !
+PRINT ( v ) ! PRINT ( v ) !
