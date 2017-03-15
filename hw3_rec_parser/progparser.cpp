@@ -87,12 +87,10 @@ int main() {
   /*****     Main Body     *****/
   get_token();
 
-  //do {
-
     if ( is_fnct_seq() )
-      cout << token << "\tCORRECT   " << endl;
+      cout << "CORRECT" << endl;
     else
-      cout << token << "\tINVALID!   " << endl;
+      cout << "INVALID!" << endl;
 
   return 0;
 }//end main
@@ -253,6 +251,7 @@ bool is_print(){
         if ( token == ")"){
           get_token();
           if ( token == "!" ){
+            get_token();
             return true;
           }
           else
@@ -280,6 +279,7 @@ bool is_ret(){
     if ( is_identifier(token) ){
       get_token();
       if ( token == "!" ){
+        get_token();
         return true;
       }
       else
@@ -306,20 +306,23 @@ bool is_statement(){
 bool is_state_seq(){
 
   bool check;
+  bool state;
 
   if ( is_statement() ){
-    get_token();
-      while( is_statement() ){
-        get_token();
+    check = true;
+
+    if ( is_statement() ){
+      state = true;
+      check = true;
+      while( state ){
         if ( is_statement() ){
           check = true;
-          get_token();
+          state = true;
         }
         else
-          check = false;
-      }
-      if ( token == "$")
-        check = true;
+        state = false;
+      } // end while
+    }
   }
   else
     check = false;
@@ -342,12 +345,14 @@ bool is_if(){
           get_token();
           if ( is_state_seq() ){
             if ( token == "FI"){
+              get_token();
               return true;
             }
             else if ( token == "ELSE" ){
               get_token();
               if ( is_state_seq() ){
                 if ( token == "FI"){
+                  get_token();
                   return true;
                 }
                 else
@@ -356,8 +361,9 @@ bool is_if(){
               else
                 return false;
             }
-            else
+            else{
               return false;
+            }
           }
           else
             return false;
@@ -387,6 +393,7 @@ bool is_loop(){
           get_token();
           if ( is_state_seq() ){
             if ( token == "POOL"){
+              get_token();
               return true;
             }
             else

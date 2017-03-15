@@ -1,0 +1,51 @@
+FUNC isRelation ( s )
+BEGIN
+  IF ( ( s = "<" ) OR ( s = ">" ) OR
+       ( s = "=" ) OR ( s = "#" ) )
+     RET true !
+  FI
+  RET false !
+END.
+
+
+FUNC isExpression ( )
+BEGIN
+  isSimpleExpression ( ) !
+  IF ( isRelation ( token ) )
+    getToken ( ) !
+    isSimpleExtression ( ) !
+  FI
+END.
+
+
+FUNC isSimpleExpression ( )
+BEGIN
+  isTerm ( ) !
+  LOOP ( isAddOperator ( token ) )
+    getToken ( ) !
+    isTerm ( ) !
+  POOL
+END.
+
+FUNC isIfStatement ( )
+BEGIN
+  IF ( token = "IF" )
+    getToken ( ) !
+    IF ( token = "(" )
+      getToken ( ) !
+      isExpression ( ) !
+      IF ( token = ")" )
+        getToken ( ) !
+        isStatementSequence ( ) !
+        IF ( token = "ELSE" )
+          getToken ( ) !
+          isStatementSequence ( ) !
+        ELSE
+          IF ( token = "FI" )
+            getToken ( ) !
+          FI
+        FI
+      FI
+    FI
+  FI
+END.

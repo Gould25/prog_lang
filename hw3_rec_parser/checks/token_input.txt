@@ -1,0 +1,2 @@
+FUNC dog ( cat , kitty ) BEGIN PRINT ( c ) ! PRINT ( c ) ! END.
+FUNC dog ( cat ) BEGIN PRINT ( c ) ! END.
