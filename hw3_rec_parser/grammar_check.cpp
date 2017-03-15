@@ -55,6 +55,31 @@ bool is_statement();
 // Postcondition: returns true or false
 bool is_state_seq();
 
+// function Name: is_if()
+// Purpose: to find if the string is an if statement
+// Postcondition: returns true or false
+bool is_if();
+
+// function Name: is_loop()
+// Purpose: to find if the string is a loop statement
+// Postcondition: returns true or false
+bool is_loop();
+
+// function Name: is_parameter()
+// Purpose: to find if the string is a parameter
+// Postcondition: returns true or false
+bool is_parameter();
+
+// function Name: is_fnct_decl()
+// Purpose: to find if the string is a function declaration
+// Postcondition: returns true or false
+bool is_fnct_decl();
+
+// function Name: is_fnct_seq()
+// Purpose: to find if the string is a sequence of functions
+// Postcondition: returns true or false
+bool is_fnct_seq();
+
 string token;     // global variable for input
 
 int main() {
@@ -64,7 +89,7 @@ int main() {
 
   //do {
 
-    if (is_state_seq())
+    if ( is_fnct_seq() )
       cout << token << "\tCORRECT   " << endl;
     else
       cout << token << "\tINVALID!   " << endl;
@@ -270,8 +295,8 @@ bool is_ret(){
 /*****     statement Function     *****/
 
 bool is_statement(){
-  if ( is_print() | is_assignment() |
-        is_ret() )
+  if ( is_print() | is_assignment() | is_loop() |
+        is_ret() | is_if() )
       return true;
   return false;
 } // end is_statement
@@ -283,12 +308,8 @@ bool is_state_seq(){
   bool check;
 
   if ( is_statement() ){
-    cerr << "state seq 1 " << token << endl;
     get_token();
-
       while( is_statement() ){
-        cerr << "state seq 2 " << token << endl;
-
         get_token();
         if ( is_statement() ){
           check = true;
@@ -299,9 +320,6 @@ bool is_state_seq(){
       }
       if ( token == "$")
         check = true;
-      else
-        check = false;
-
   }
   else
     check = false;
@@ -310,6 +328,210 @@ bool is_state_seq(){
     return true;
   else
     return false;
-
-
 } // end is_state_seq
+
+/*****     if statement Function     *****/
+
+bool is_if(){
+  if ( token == "IF" ){
+    get_token();
+    if ( token == "(" ){
+      get_token();
+      if ( is_expression() ){
+        if ( token == ")" ){
+          get_token();
+          if ( is_state_seq() ){
+            if ( token == "FI"){
+              return true;
+            }
+            else if ( token == "ELSE" ){
+              get_token();
+              if ( is_state_seq() ){
+                if ( token == "FI"){
+                  return true;
+                }
+                else
+                  return false;
+              }
+              else
+                return false;
+            }
+            else
+              return false;
+          }
+          else
+            return false;
+        }
+        else
+          return false;
+      }
+      else
+        return false;
+    }
+    else
+      return false;
+  }
+  else
+    return false;
+} // end is_if
+
+/*****     loop statement Function     *****/
+
+bool is_loop(){
+  if ( token == "LOOP" ){
+    get_token();
+    if ( token == "(" ){
+      get_token();
+      if ( is_expression() ){
+        if ( token == ")" ){
+          get_token();
+          if ( is_state_seq() ){
+            if ( token == "POOL"){
+              return true;
+            }
+            else
+              return false;
+          }
+          else
+            return false;
+        }
+        else
+          return false;
+      }
+      else
+        return false;
+    }
+    else
+      return false;
+  }
+  else
+    return false;
+} // end is_loop
+
+/*****     Parameter Function     *****/
+
+bool is_parameter(){
+
+  bool check;
+
+  if ( is_identifier(token) ) {
+    get_token();
+    check = true;
+    while ( token == "," ){
+        get_token();
+        if ( is_identifier(token) ){
+            get_token();
+            check = true;
+        } // end if
+        else
+          check = false;
+    } // end while
+  }
+  else
+    check = false;
+
+  /*****    RETURN SECTION     ******/
+
+   if (check)
+     return true;
+   else
+     return false;
+} // end is_parameter
+
+/*****     function declaration Function     *****/
+
+bool is_fnct_decl(){
+  if ( token == "FUNC" ){
+    get_token();
+    if ( is_identifier(token) ){
+      get_token();
+      if ( token == "(" ){
+        get_token();
+        if ( token == ")" ){
+          get_token();
+          if ( token == "BEGIN"){
+            get_token();
+            if ( is_state_seq()){
+              //get_token();
+              if ( token == "END." ){
+                return true;
+              }
+              else
+                return false;
+            }
+            else
+              return false;
+          }
+          else
+            return false;
+        }
+        else if ( is_parameter() ){
+          if ( token == ")" ){
+            get_token();
+            if ( token == "BEGIN"){
+              get_token();
+              if ( is_state_seq()){
+                //get_token();
+                if ( token == "END." ){
+                  return true;
+                }
+                else
+                  return false;
+              }
+              else
+                return false;
+            }
+            else
+              return false;
+          }
+          else
+            return false;
+        }
+        else
+          return false;
+      }
+      else
+        return false;
+    }
+    else
+      return false;
+  }
+  else
+    return false;
+} // end is_fnct_decl
+
+/*****     Function sequence Function     *****/
+
+bool is_fnct_seq(){
+
+  bool check;
+
+  if ( is_fnct_decl() ){
+    get_token();
+    if ( token == "$" ) {
+      return true;
+    }
+    else if ( is_fnct_decl() ){
+      while( is_fnct_decl() ){
+        if ( is_fnct_decl() ){
+          check = true;
+          get_token();
+        }
+        else
+          check = false;
+      }
+      if (token == "$"){
+        return true;
+      }
+    } // end el if
+    else
+      check = false;
+  }
+  else
+    check = false;
+  /*****    RETURN SECTION     ******/
+  if (check )
+    return true;
+  else
+    return false;
+} // end is_fnct_seq

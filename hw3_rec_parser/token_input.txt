@@ -1,6 +1,2 @@
-c := c * c !
-RET c !
-PRINT ( v ) !
-PRINT ( v ) !
-PRINT ( v ) !
-PRINT ( v ) ! PRINT ( v ) !
+FUNC dog ( cat , kitty ) BEGIN PRINT ( c ) ! END.
+FUNC dog ( cat ) BEGIN PRINT ( c ) ! END.
