@@ -1,6 +1,11 @@
-/********************************************************
-* hint.y
-********************************************************/
+/*
+Programmer: Jeff Gould ID#:12517284
+Date: April 3, 2017
+Instructor: DR. Morales
+Section: 1B
+File: progparser.l
+Description: bison file
+*/
 // -- PREAMBLE ------------------------------------------
 %{
 #include <iostream>

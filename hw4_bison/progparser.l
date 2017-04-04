@@ -1,6 +1,11 @@
-/***********************************************************
- * hint.l
- ***********************************************************/
+/*
+Programmer: Jeff Gould ID#:12517284
+Date: April 3, 2017
+Instructor: DR. Morales
+Section: 1B
+File: progparser.l
+Description: lex file
+
 /* -- PREAMBLE  ------------------------------------------ */
 %{
 #include <iostream>
@@ -28,7 +33,7 @@ ALPHANUM   [a-zA-Z0-9]
 {WHITE}    ;                /* eat white space */
 \n         { line_num++; }  /* count line numbers */
 
- /* Keywork tokens */
+ /* Keyword tokens */
 "!"        { writeToken("K_BANG"); return K_BANG; }
 ":="       { writeToken("K_ASSIGN"); return K_ASSIGN; }
 "("        { writeToken("K_LPAREN"); return K_LPAREN; }
