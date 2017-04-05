@@ -39,12 +39,27 @@ ALPHANUM   [a-zA-Z0-9]
 "("        { writeToken("K_LPAREN"); return K_LPAREN; }
 ")"        { writeToken("K_RPAREN"); return K_RPAREN; }
 "PRINT"    { writeToken("K_PRINT"); return K_PRINT; }
+"~"        { writeToken("K_NEG"); return K_NEG; }
+"RET"      { writeToken("K_RET"); return K_RET; }
+"IF"       { writeToken("K_IF"); return K_IF; }
+"FI"       { writeToken("K_FI"); return K_FI; }
+"ELSE"     { writeToken("K_ELSE"); return K_ELSE; }
+"LOOP"     { writeToken("K_LOOP"); return K_LOOP; }
+"POOL"     { writeToken("K_POOL"); return K_POOL; }
+"FUNC"     { writeToken("K_FUNC"); return K_FUNC; }
+"BEGIN"    { writeToken("K_BEGIN"); return K_BEGIN; }
+"END."     { writeToken("K_END"); return K_END; }
+","        { writeToken("COMMA"); return comma; }
+
 
  /* Complex Tokens */
-{ALPHA}{ALPHANUM}*         { writeToken("T_IDENT"); return T_IDENT; }
-[+-]?{DIGIT}+              { writeToken("T_INTEGER"); return T_INTEGER; }
+[*]?[/]?"AND"?             { writeToken("T_MULOPERATOR"); return T_MULOPERATOR; }
+[+]?[-]?[&]?"OR"?          { writeToken("T_ADDOPERATOR"); return T_ADDOPERATOR; }
+[<]?[>]?[=]?[#]?           { writeToken("T_RELATION"); return T_RELATION; }
+\"{ALPHANUM}*\"            { writeToken("T_STRING"); return T_STRING; }
 [+-]?{DIGIT}+\.{DIGIT}+    { writeToken("T_DECIMAL"); return T_DECIMAL; }
-
+[+-]?{DIGIT}+              { writeToken("T_INTEGER"); return T_INTEGER; }
+{ALPHA}{ALPHANUM}*         { writeToken("T_IDENT"); return T_IDENT; }
 
 %%   /* -- EPILOGUE  -------------------------------------- */
 
