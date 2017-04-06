@@ -49,14 +49,14 @@ ALPHANUM   [a-zA-Z0-9]
 "FUNC"     { writeToken("K_FUNC"); return K_FUNC; }
 "BEGIN"    { writeToken("K_BEGIN"); return K_BEGIN; }
 "END."     { writeToken("K_END"); return K_END; }
-","        { writeToken("COMMA"); return comma; }
+","        { return comma;}
 
 
  /* Complex Tokens */
 [*]?[/]?"AND"?             { writeToken("T_MULOPERATOR"); return T_MULOPERATOR; }
 [+]?[-]?[&]?"OR"?          { writeToken("T_ADDOPERATOR"); return T_ADDOPERATOR; }
 [<]?[>]?[=]?[#]?           { writeToken("T_RELATION"); return T_RELATION; }
-\"{ALPHANUM}*\"            { writeToken("T_STRING"); return T_STRING; }
+\".*\"                     { writeToken("T_STRING"); return T_STRING; }
 [+-]?{DIGIT}+\.{DIGIT}+    { writeToken("T_DECIMAL"); return T_DECIMAL; }
 [+-]?{DIGIT}+              { writeToken("T_INTEGER"); return T_INTEGER; }
 {ALPHA}{ALPHANUM}*         { writeToken("T_IDENT"); return T_IDENT; }

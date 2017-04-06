@@ -1,2 +1,17 @@
 
-FUNC jeff ( is , great ) BEGIN IF ( a > b ) c := 5 * 5 ! ELSE c := 5 * 5 ! FI END.
+FUNC gcd ( a , b )
+BEGIN
+  LOOP ( a # b )
+    IF ( a > b )
+      a := a - b !
+    ELSE
+      b := b - a !
+    FI
+  POOL
+  RET a !
+END.
+
+FUNC hello ( ) BEGIN
+  PRINT ( "Hello" &
+          "World!" ) !
+END.

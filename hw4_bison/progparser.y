@@ -73,8 +73,7 @@ StatementSeq : statement
               { cout << "RULE: StatementSeq ::= Statement StatementSeq" << endl; }
               ;
 
-statement : /* empty */   { cout << "RULE: Statement ::= empty" << endl; }
-         | assignment     { cout << "RULE: Statement ::= Assignment" << endl; }
+statement : assignment    { cout << "RULE: Statement ::= Assignment" << endl; }
          | PrintStatement { cout << "RULE: Statement ::= PrintStatement" << endl; }
          | RetStatement   { cout << "RULE: Statement ::= RetStatement" << endl; }
          | IfStatement    { cout << "RULE: Statement ::= IfStatement" << endl; }
