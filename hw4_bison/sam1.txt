@@ -1,0 +1,41 @@
+TOKEN: K_FUNC        LEXEME: FUNC
+TOKEN: T_IDENT       LEXEME: main
+TOKEN: K_LPAREN      LEXEME: (
+TOKEN: K_RPAREN      LEXEME: )
+TOKEN: K_BEGIN       LEXEME: BEGIN
+TOKEN: T_IDENT       LEXEME: x
+TOKEN: K_ASSIGN      LEXEME: :=
+TOKEN: T_INTEGER     LEXEME: 2
+RULE: Factor ::= integer
+TOKEN: T_ADDOPERATOR LEXEME: +
+RULE: Term ::= Factor
+TOKEN: T_INTEGER     LEXEME: 2
+RULE: Factor ::= integer
+TOKEN: K_BANG        LEXEME: !
+RULE: Term ::= Factor
+RULE: SimpleExpression ::= Term
+RULE: SimpleExpression ::= Term AddOperator SimpleExpression
+RULE: Expression ::= SimpleExpression
+RULE: Assignment ::= identifier := Expression !
+RULE: Statement ::= Assignment
+TOKEN: K_PRINT       LEXEME: PRINT
+TOKEN: K_LPAREN      LEXEME: (
+TOKEN: T_IDENT       LEXEME: x
+RULE: Factor ::= identifier
+TOKEN: T_MULOPERATOR LEXEME: *
+TOKEN: T_INTEGER     LEXEME: 100
+RULE: Factor ::= integer
+TOKEN: K_RPAREN      LEXEME: )
+RULE: Term ::= Factor
+RULE: Term ::= Factor MulOperator Term
+RULE: SimpleExpression ::= Term
+RULE: Expression ::= SimpleExpression
+TOKEN: K_BANG        LEXEME: !
+RULE: PrintStatement ::= PRINT ( Expression ) !
+RULE: Statement ::= PrintStatement
+TOKEN: K_END         LEXEME: END.
+RULE: StatementSequence ::= Statement
+RULE: StatementSequence ::= Statement StatementSequence
+RULE: FunctionDeclaration ::= FUNC identifier ( ) BEGIN StatementSequence END.
+RULE: FunctionSequence ::= FunctionDeclaration
+CORRECT

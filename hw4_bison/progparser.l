@@ -49,7 +49,7 @@ ALPHANUM   [a-zA-Z0-9]
 "FUNC"     { writeToken("K_FUNC"); return K_FUNC; }
 "BEGIN"    { writeToken("K_BEGIN"); return K_BEGIN; }
 "END."     { writeToken("K_END"); return K_END; }
-","        { return comma;}
+","        { cout << "AUX COMMA" << endl; return comma;}
 
 
  /* Complex Tokens */

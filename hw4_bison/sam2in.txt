@@ -1,16 +1,16 @@
-
 FUNC gcd ( a , b )
 BEGIN
   LOOP ( a # b )
     IF ( a > b )
       a := a - b !
     ELSE
-      b := b - a - c - d + f !
-    FI
-
-    IF ( a > b )
-      a := a - b !
+      b := b - a !
     FI
   POOL
   RET a !
+END.
+
+FUNC hello ( ) BEGIN
+  PRINT ( "Hello" &
+          "World!" ) !
 END.

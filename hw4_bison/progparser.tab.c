@@ -515,8 +515,8 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     2,     0,     1,     3,     0,     6,     0,
-       0,     0,     0,     0,     7,     0,     0,     0,     0,     0,
+       0,     0,     0,     2,     0,     1,     3,     0,     7,     0,
+       0,     0,     0,     0,     6,     0,     0,     0,     0,     0,
        0,     8,    10,    11,    12,    13,    14,     0,     0,     0,
        0,     0,     0,     4,     9,     0,    31,    28,    29,    30,
        0,     0,     0,    21,    23,    25,     0,    17,     0,     0,
@@ -590,7 +590,7 @@ static const yytype_uint8 yyr1[] =
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1,     2,     7,     8,     1,     3,     1,     2,
+       0,     2,     1,     2,     7,     8,     3,     1,     1,     2,
        1,     1,     1,     1,     1,     4,     5,     3,     6,     8,
        6,     1,     3,     1,     3,     1,     3,     2,     1,     1,
        1,     1,     3
@@ -1277,43 +1277,43 @@ yyreduce:
 
   case 3:
 #line 55 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: FunctionSequence ::= Declaration Sequence" << endl;}
+    { cout << "RULE: FunctionSequence ::= FunctionDeclaration FunctionSequence" << endl;}
 #line 1282 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
 #line 59 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: FunctionDeclaration ::= Function" << endl;}
+    { cout << "RULE: FunctionDeclaration ::= FUNC identifier ( ) BEGIN StatementSequence END." << endl;}
 #line 1288 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
 #line 61 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: FunctionDeclaration ::= ParameterFunction" << endl;}
+    { cout << "RULE: FunctionDeclaration ::= FUNC identifier ( ParamSequence ) BEGIN StatementSequence END." << endl;}
 #line 1294 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
 #line 65 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: ParamSequence ::= Identifier" << endl;}
+    { cout << "RULE: ParamSequence ::= identifier , ParamSequence" << endl;}
 #line 1300 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
 #line 67 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: ParamSequence ::= Identifier ParamSequence" << endl;}
+    { cout << "RULE: ParamSequence ::= identifier" << endl;}
 #line 1306 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
 #line 71 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: StatementSeq ::= Statement" << endl; }
+    { cout << "RULE: StatementSequence ::= Statement" << endl; }
 #line 1312 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
 #line 73 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: StatementSeq ::= Statement StatementSeq" << endl; }
+    { cout << "RULE: StatementSequence ::= Statement StatementSequence" << endl; }
 #line 1318 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1349,7 +1349,7 @@ yyreduce:
 
   case 15:
 #line 84 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: Assignment ::= ident := Expression ! " << endl; }
+    { cout << "RULE: Assignment ::= identifier := Expression !" << endl; }
 #line 1354 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1361,91 +1361,91 @@ yyreduce:
 
   case 17:
 #line 91 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: RetStatement ::= Ret identifier !" << endl; }
+    { cout << "RULE: RetStatement ::= RET identifier !" << endl; }
 #line 1366 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
 #line 95 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: IfStatement ::= IF ( EXPR ) StmSeq FI !" << endl; }
+    { cout << "RULE: IfStatement ::= IF ( EXPR ) StmSeq FI" << endl; }
 #line 1372 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
 #line 97 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: IfElseStatement ::= IF ( EXPR ) StmSeq ELSE StmSeq FI !" << endl; }
+    { cout << "RULE: IfStatement ::= IF ( Expression ) StatementSequence ELSE StatementSequence FI" << endl; }
 #line 1378 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
 #line 101 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: LoopStatement ::= LOOP ( EXPR ) StmSeq POOL !" << endl; }
+    { cout << "RULE: LoopStatement ::= LOOP ( Expression ) StatementSequence POOL" << endl; }
 #line 1384 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
 #line 104 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: Expression ::= Simple Expression !" << endl; }
+    { cout << "RULE: Expression ::= SimpleExpression" << endl; }
 #line 1390 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
 #line 106 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: Expression ::= Relation !" << endl; }
+    { cout << "RULE: Expression ::= SimpleExpression Relation Expression" << endl; }
 #line 1396 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
 #line 110 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: Simple Expression ::= Term !" << endl; }
+    { cout << "RULE: SimpleExpression ::= Term" << endl; }
 #line 1402 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
 #line 112 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: Simple Expression ::= ADDOPERATOR !" << endl; }
+    { cout << "RULE: SimpleExpression ::= Term AddOperator SimpleExpression" << endl; }
 #line 1408 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
 #line 116 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: Term ::= Factor !" << endl; }
+    { cout << "RULE: Term ::= Factor" << endl; }
 #line 1414 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
 #line 118 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: Term ::= MULOPERATOR !" << endl; }
+    { cout << "RULE: Term ::= Factor MulOperator Term" << endl; }
 #line 1420 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
 #line 120 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: Term ::= NEGATIVE FACTOR !" << endl; }
+    { cout << "RULE: Term ::= NEGATIVE FACTOR" << endl; }
 #line 1426 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
 #line 123 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: FACTOR ::= INTEGER" << endl; }
+    { cout << "RULE: Factor ::= integer" << endl; }
 #line 1432 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
 #line 124 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: FACTOR ::= DECIMAL" << endl; }
+    { cout << "RULE: Factor ::= decimal" << endl; }
 #line 1438 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
 #line 125 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: FACTOR ::= STRING" << endl; }
+    { cout << "RULE: Factor ::= string" << endl; }
 #line 1444 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
 #line 126 "progparser.y" /* yacc.c:1646  */
-    { cout << "RULE: FACTOR ::= IDENTIFIER" << endl; }
+    { cout << "RULE: Factor ::= identifier" << endl; }
 #line 1450 "progparser.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1696,7 +1696,6 @@ int yyerror(const char *p)
 int main()
 {
  int failcode;
- cout << "Hello Flex + Bison" << endl;
  failcode = yyparse();
 
  if (failcode)

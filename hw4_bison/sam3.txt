@@ -1,0 +1,114 @@
+TOKEN: K_FUNC        LEXEME: FUNC
+TOKEN: T_IDENT       LEXEME: gcd
+TOKEN: K_LPAREN      LEXEME: (
+TOKEN: T_IDENT       LEXEME: a
+AUX COMMA
+TOKEN: T_IDENT       LEXEME: b
+TOKEN: K_RPAREN      LEXEME: )
+RULE: ParamSequence ::= identifier
+RULE: ParamSequence ::= identifier , ParamSequence
+TOKEN: K_BEGIN       LEXEME: BEGIN
+TOKEN: K_LOOP        LEXEME: LOOP
+TOKEN: K_LPAREN      LEXEME: (
+TOKEN: T_IDENT       LEXEME: a
+RULE: Factor ::= identifier
+TOKEN: T_RELATION    LEXEME: #
+RULE: Term ::= Factor
+RULE: SimpleExpression ::= Term
+TOKEN: T_IDENT       LEXEME: b
+RULE: Factor ::= identifier
+TOKEN: K_RPAREN      LEXEME: )
+RULE: Term ::= Factor
+RULE: SimpleExpression ::= Term
+RULE: Expression ::= SimpleExpression
+RULE: Expression ::= SimpleExpression Relation Expression
+TOKEN: K_IF          LEXEME: IF
+TOKEN: K_LPAREN      LEXEME: (
+TOKEN: T_IDENT       LEXEME: a
+RULE: Factor ::= identifier
+TOKEN: T_RELATION    LEXEME: >
+RULE: Term ::= Factor
+RULE: SimpleExpression ::= Term
+TOKEN: T_IDENT       LEXEME: b
+RULE: Factor ::= identifier
+TOKEN: K_RPAREN      LEXEME: )
+RULE: Term ::= Factor
+RULE: SimpleExpression ::= Term
+RULE: Expression ::= SimpleExpression
+RULE: Expression ::= SimpleExpression Relation Expression
+TOKEN: T_IDENT       LEXEME: a
+TOKEN: K_ASSIGN      LEXEME: :=
+TOKEN: T_IDENT       LEXEME: a
+RULE: Factor ::= identifier
+TOKEN: T_ADDOPERATOR LEXEME: -
+RULE: Term ::= Factor
+TOKEN: T_IDENT       LEXEME: b
+RULE: Factor ::= identifier
+TOKEN: K_BANG        LEXEME: !
+RULE: Term ::= Factor
+RULE: SimpleExpression ::= Term
+RULE: SimpleExpression ::= Term AddOperator SimpleExpression
+RULE: Expression ::= SimpleExpression
+RULE: Assignment ::= identifier := Expression !
+RULE: Statement ::= Assignment
+TOKEN: K_ELSE        LEXEME: ELSE
+RULE: StatementSequence ::= Statement
+TOKEN: T_IDENT       LEXEME: b
+TOKEN: K_ASSIGN      LEXEME: :=
+TOKEN: T_IDENT       LEXEME: b
+RULE: Factor ::= identifier
+TOKEN: T_ADDOPERATOR LEXEME: -
+RULE: Term ::= Factor
+TOKEN: T_IDENT       LEXEME: a
+RULE: Factor ::= identifier
+TOKEN: K_BANG        LEXEME: !
+RULE: Term ::= Factor
+RULE: SimpleExpression ::= Term
+RULE: SimpleExpression ::= Term AddOperator SimpleExpression
+RULE: Expression ::= SimpleExpression
+RULE: Assignment ::= identifier := Expression !
+RULE: Statement ::= Assignment
+TOKEN: K_FI          LEXEME: FI
+RULE: StatementSequence ::= Statement
+RULE: IfStatement ::= IF ( Expression ) StatementSequence ELSE StatementSequence FI
+RULE: Statement ::= IfStatement
+TOKEN: K_POOL        LEXEME: POOL
+RULE: StatementSequence ::= Statement
+RULE: LoopStatement ::= LOOP ( Expression ) StatementSequence POOL
+RULE: Statement ::= LoopStatement
+TOKEN: K_RET         LEXEME: RET
+TOKEN: T_IDENT       LEXEME: a
+TOKEN: K_BANG        LEXEME: !
+RULE: RetStatement ::= RET identifier !
+RULE: Statement ::= RetStatement
+TOKEN: K_END         LEXEME: END.
+RULE: StatementSequence ::= Statement
+RULE: StatementSequence ::= Statement StatementSequence
+RULE: FunctionDeclaration ::= FUNC identifier ( ParamSequence ) BEGIN StatementSequence END.
+TOKEN: K_FUNC        LEXEME: FUNC
+TOKEN: T_IDENT       LEXEME: hello
+TOKEN: K_LPAREN      LEXEME: (
+TOKEN: K_RPAREN      LEXEME: )
+TOKEN: K_BEGIN       LEXEME: BEGIN
+TOKEN: K_PRINT       LEXEME: PRINT
+TOKEN: K_LPAREN      LEXEME: (
+TOKEN: T_STRING      LEXEME: "Hello"
+RULE: Factor ::= string
+TOKEN: T_ADDOPERATOR LEXEME: &
+RULE: Term ::= Factor
+TOKEN: T_STRING      LEXEME: "World!"
+RULE: Factor ::= string
+TOKEN: K_RPAREN      LEXEME: )
+RULE: Term ::= Factor
+RULE: SimpleExpression ::= Term
+RULE: SimpleExpression ::= Term AddOperator SimpleExpression
+RULE: Expression ::= SimpleExpression
+TOKEN: K_BANG        LEXEME: !
+RULE: PrintStatement ::= PRINT ( Expression ) !
+RULE: Statement ::= PrintStatement
+TOKEN: K_END         LEXEME: END.
+RULE: StatementSequence ::= Statement
+RULE: FunctionDeclaration ::= FUNC identifier ( ) BEGIN StatementSequence END.
+RULE: FunctionSequence ::= FunctionDeclaration
+RULE: FunctionSequence ::= FunctionDeclaration FunctionSequence
+CORRECT

@@ -910,7 +910,7 @@ YY_RULE_SETUP
 case 18:
 YY_RULE_SETUP
 #line 52 "progparser.l"
-{ return comma;}
+{ cout << "AUX COMMA" << endl; return comma;}
 	YY_BREAK
 /* Complex Tokens */
 case 19:
